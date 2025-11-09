@@ -1,13 +1,16 @@
 from fastapi import FastAPI, status
 from app.router import product
 from fastapi.middleware.cors import CORSMiddleware
+from app.core.config import settings
 
 
 def create_application():
     app = FastAPI(
-        title="E-commerce",
-        description="Backend for e-commerce",
-        version="0.0.1",
+        title=settings.app_name,
+        description=settings.app_description,
+        version=settings.app_version,
+        docs_url=settings.docs_url,
+        redoc_url=settings.redocs_url
     )
 
     app.add_middleware(
@@ -20,6 +23,7 @@ def create_application():
 
     app.include_router(
         product.router,
+        prefix=settings.api_prefix
     )
 
     return app
