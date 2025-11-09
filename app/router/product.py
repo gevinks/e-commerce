@@ -1,15 +1,39 @@
 from app.main import app
+from fastapi import APIRouter
 
-@app.get("/products")
+router = APIRouter(
+    prefix= "/products",
+    tags= ["products"],
+    responses= {
+        404: {
+            "description": "Not Found"
+        },
+        500: {
+            "description": "Internal Server Error"
+        }
+    }
+)
+
+@router.get("/")
 def get_products():
     pass
 
-@app.get("/products/{product_id}")
-def get_product_from_id(product_id: int):
+@router.get("/{product_id}")
+def get_product_by_id():
     pass
 
-@app.post("/products")
-def post_product(request):
+@router.post("/")
+def create_product():
     pass
 
-@app.put("/products/{product_id}")
+@router.put("/{product_id}")
+def modify_product():
+    pass
+
+@router.patch("/{product_id}/stock")
+def update_product_stock():
+    pass
+
+@router.delete("/{product_id}")
+def delete_product():
+    pass
